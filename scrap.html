@@ -1,0 +1,96 @@
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>eBay Search Results</title>
+    <style type="text/css">
+        body {
+            font-family: arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>eBay Search Results</h1>
+
+    <button id="submitter">
+        New Search API
+    </button>
+
+    <script>
+const isoConverter = (iso) => {
+  switch (iso) {
+    case "US":
+      return "United States";
+    case "AT":
+      return "Austria";
+    case "AU":
+      return "Australia";
+    case "CH":
+      return "Switzerland";
+    case "DE":
+      return "Germany";
+    case "CA":
+      return "Canada";
+    case "ES":
+      return "Spain";
+    case "FR":
+      return "France";
+    case "BE":
+      return "Belgium";
+    case "GB":
+      return "United Kingom";
+    case "HK":
+      return "Hong Kong";
+    case "IE":
+      return "Ireland";
+    case "IN":
+      return "India";
+    case "IT":
+      return "Italy";
+    case "MY":
+      return "Malaysia";
+    case "NL":
+      return "Netherlands";
+    case "PH":
+      return "Philippines";
+    case "PL":
+      return "Poland";
+    case "SG":
+      return "Singapore";
+  }
+};
+
+        
+        const button = document.getElementById("submitter")
+        const token = "v^1.1#i^1#I^3#r^0#f^0#p^1#t^H4sIAAAAAAAAAOVYf2wTVRxf9wtXYESjQhbEetNEwbu+u7bX60mr3dZBWbeVdYxtiZnXu9f16P2o914ZBTRlKgkCCkGEYExQ0YTExBCFAEJC/NtAQmKUEMOviBgiCPxBjJp4dyujmwSQNbGJ/ad53/d93/f5fN73+967Bwr1DfPXL15/c6ZjWvXuAihUOxz0dNBQX7egsaa6qa4KlDg4dheeLtSO1lxaiARVyfI9EGV1DUHXKlXREG8bg0TO0HhdQDLiNUGFiMcinwh3xniGAnzW0LEu6grhirYFCQkGJI6lfUAEHiBxnGnVbsXs1YNEEnBsQAr4vX5RkmjGa/YjlINRDWFBw0GCAQxNAh9Jc700x3toHnCUx8cOEq4+aCBZ10wXChAhGy5vjzVKsN4dqoAQNLAZhAhFw+2J7nC0LdLVu9BdEitU1CGBBZxDE1utugRdfYKSg3efBtnefCInihAhwh0am2FiUD58C8wDwLel5vzAm6J9SY6mUx4v6ymLlO26oQr47jgsiyyRKduVhxqWcf5eippqJFdAERdbXWaIaJvL+luaExQ5JUMjSERawgPheJwIxYWcEtGGyUWKnoQtQp6M97SRLOBSrM8nBkjay3ggyzLFecaCFVWeNFGrrkmypRlydem4BZqg4WRpmBJpTKdurdsIp7AFqMSPAeMSMoPWmo4tYg6nNWtZoWrq4LKb916A8dEYG3Iyh+F4hMkdtkJBQshmZYmY3GmnYjF7VqEgkcY4y7vdIyMj1IiH0o1hNwMA7e7vjCXENFQFwvK1at32l+89gJRtKiI0RyKZx/msiWWVmaomAG2YCDFeL+Nli7pPhBWabP2HoYSze2JBlKtAGI4T/WKAhX5BSHJMshwFEirmqNvCAZNmaqqCkYE4qwgiJEUzz3IqNGSJ9/hSjIdLQVJiAynSG0ilyKRPYkk6BSGAMJkUA9z/qE7uN9MTUDQgLk+qlyvN8+GeJe2dq1/VO4xwICx0DEbbVzMDw0vplYJfaNc7+8WRwZivL9y9nAvebzHckXyrIpvK9JrzV16tL9YRhtKU6CVEPQvjuiKL+cpaYI8hxQUD5xNQUUzDlEiGs9lombbqctH7d7vEg9Eu4wn135xOd2SFrIytLFbWeGQGELIyZZ0/lKirbl3IWbWO05Z5yEY9Jd6yeW2tKNYmyTG2sjR236RMyjhNoZUiZUCk5wzzqk11W/evXj0DNfM4w4auKNDoo6dczqqaw0JSgZVW12VIcFmosLOWZhnawzIsy02Jl2ifpEOVtiWVaSeubX2AO7V74gd+qMr+0aOO/WDUsa/a4QBu8AzdDJ6qr1lWWzOjCckYUrKQopA8rJnfrQakMjCfFWSjut4xMvvwp0dLnhR2vwzmjD8qNNTQ00teGMDc2z119KzZMxka+GiO5jw04AZB8+3eWvrx2kdXXArRB2Z90Ti/hdg55+KCyzeHt2wCM8edHI66qtpRR9VDZ7vefTPx9TvfrL4wdHWoQ3t7uW+N88rAz+2NziP9f5xvgeu2Rq9WvdJcOHX417X92ozFhR+bu/cdcG741hkjX0v/dc6zd9amM03Esff2eJuNryLqms+3b/993sUfnvj40NZt3pOdSyIXfjnvDEaP7GCfdG5Ulx59bqBxkfr+tprTBzs2XJVjL6w9/mHsxDptf+Pmc4jesMV9bMbZmrnP/5lOnDoEpm26AWPJFz/66cYo3nFl7fRrXf6dc09HHhPOf7Jm2XdN6K05J347c+iNzr0fnP3+4An/8dMnI87X91w/s2feZxceXplpuLxuc2bXxvURvCvYkPky/sjll5KJZ90req4RmZMDR65f2jcwtnx/A8NUDWTsEQAA"
+        button.addEventListener("click", () => {
+
+            $.ajax({
+                type: "GET",
+                url: "https://api.ebay.com/buy/browse/v1/item_summary/search?",
+                dataType: "json",
+                contentType: "application/json",
+                headers: { "Authorization": "Bearer " + token },
+                data: {
+                    q: "Pokemon",
+                    fieldgroups: "EXTENDED",
+                    limit: 20,
+                    filter: "itemLocationCountry:US, price:[10..12], priceCurrency:USD",
+
+                },
+                success: data => console.log(data.itemSummaries[0]),
+                error: (jqXHR, exception) => console.log(jqXHR, exception)
+
+            })
+        })
+
+
+        // https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&keywords=harry%20potter&SECURITY-APPNAME=PaulEng-GlobeBay-PRD-608f655c9-1423e662&RESPONSE-DATA-FORMAT=JSON
+
+    </script>
+</body>
+
+</html>
