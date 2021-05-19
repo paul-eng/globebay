@@ -1,12 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const ebay = require("./routes/ebay");
+const google = require("./routes/google");
 const path = require("path");
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use("/ebay", ebay);
+app.use("/google", google);
 
 // Heroku specific HTTPS redirect solution c/o Jake Trent
 if (process.env.NODE_ENV === "production") {

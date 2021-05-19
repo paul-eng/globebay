@@ -1,0 +1,9 @@
+Ebay began censoring full postcodes in 2020,
+Cross reference w an autocomplete from google places api
+
+set interval between requests per country to stay under 50/sec geocode limit
+
+Do not share data
+Switz
+HK
+CN
