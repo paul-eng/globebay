@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const qs = require("querystring");
-const config = require("../config.js");
+const config = require("./config");
 
 const clientId = config.EBAY_PRO_ID;
 const clientSecret = config.EBAY_PRO_SECRET;

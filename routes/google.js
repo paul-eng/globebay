@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const config = require("../config.js");
+const config = require("./config");
 
 const apiKey = config.GOOGLE_PRO_KEY;
 
