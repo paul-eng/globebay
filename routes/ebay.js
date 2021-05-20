@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const qs = require("querystring");
-const config = require("./config");
 
-const clientId = config.EBAY_PRO_ID;
-const clientSecret = config.EBAY_PRO_SECRET;
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+const clientId = process.env.EBAY_PRO_ID;
+const clientSecret = process.env.EBAY_PRO_SECRET;
 let creds = Buffer.from(`${clientId}:${clientSecret}`);
 creds = creds.toString("base64");
 

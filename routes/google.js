@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const config = require("./config");
 
-const apiKey = config.GOOGLE_PRO_KEY;
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+const apiKey = process.env.GPRO_KEY;
 
 router.get("/:location", (req, res) => {
   const params = { address: req.params.location, key: apiKey };
