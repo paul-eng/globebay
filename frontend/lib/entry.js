@@ -1,4 +1,6 @@
 import { drawMap, drawWater, drawMarkers } from "./globe.js";
+import { isoConverter, autocomplete } from "./geoutil.js";
+import { getToken } from "./ebayutil.js";
 
 let baseUrl;
 
@@ -9,13 +11,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 let appAccessToken;
-
-$.ajax({
-  type: "GET",
-  url: baseUrl + "ebay",
-  success: (data) => (appAccessToken = data),
-  error: (jqXHR, exception) => console.log(jqXHR, exception),
-});
+getToken(baseUrl).then((token) => (appAccessToken = token));
 
 let memo = {};
 
@@ -48,9 +44,8 @@ function ebayQuery(e) {
     minPrice = $("#minPrice").val(),
     maxPrice = $("#maxPrice").val(),
     numResults = $("#numEntries").val(),
-    globalId = $("#siteVersion").find(":selected").data("id"),
     countryIso = $("#siteVersion").find(":selected").data("iso");
-
+    
   if (searchQuery !== "") {
     $("#loader").addClass("loader");
     errors = ["Sorry!"];
@@ -67,7 +62,7 @@ function ebayQuery(e) {
 
   handleErrors();
 
-  if (globalId !== "world") {
+  if (countryIso !== "world") {
     $.ajax({
       type: "GET",
       // sandbox url:"https://api.sandbox.ebay.com/buy/browse/v1/item_summary/search?",
@@ -90,7 +85,7 @@ function ebayQuery(e) {
       },
     });
   } else {
-    let countries = $("option").filter((idx, op) => op.dataset.id !== "world");
+    let countries = $("option").filter((idx, op) => op.dataset.iso !== "world");
     if (numResults > 50) {
       numResults = 50;
       $("#numEntries").val("50");
@@ -98,10 +93,10 @@ function ebayQuery(e) {
     }
 
     let i = 0;
+    // Process batches of listings for each country with a delay because Geocode API only accepts 50 querys / second
     let apiPause = setInterval(() => {
       if (i < countries.length) {
         const country = countries[i];
-        globalId = country.dataset.id;
         countryIso = country.dataset.iso;
         $.ajax({
           type: "GET",
@@ -133,21 +128,7 @@ function ebayQuery(e) {
   handleErrors();
 }
 
-async function autocomplete(iso, addr) {
-  let res;
-  try {
-    res = await $.ajax({
-      type: "GET",
-      url: baseUrl + `google/place/${iso}/${addr}`,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-}
-
 function geocoder(listings) {
-  let globalId = $("#siteVersion").find(":selected").data("id");
   let ebayListings = listings.itemSummaries;
 
   if (ebayListings) {
@@ -171,7 +152,7 @@ function geocoder(listings) {
         );
       }
       if (postcode) {
-        let auto = await autocomplete(iso, `${city}, ${postcode}`);
+        let auto = await autocomplete(iso, `${city}, ${postcode}`, baseUrl);
         if (auto[0]) location = auto[0].description;
       }
       if (memo[location]) {
@@ -211,7 +192,8 @@ function geocoder(listings) {
     $.when.apply($, unfinishedRequests).then(function () {
       handleErrors();
       goodRequests += 1;
-      if (globalId === "world") {
+      let countryIso = $("#siteVersion").find(":selected").data("iso");
+      if (countryIso === "world") {
         if (goodRequests + badRequests === 15) {
           $("#loader").removeClass("loader");
         }
@@ -223,7 +205,7 @@ function geocoder(listings) {
     let searchQuery = $("#searchQuery").val();
     badRequests += 1;
     console.log("eBay Browse API returned zero results for a region");
-    if (badRequests === 15 || globalId !== "world") {
+    if (badRequests === 15 || countryIso !== "world") {
       $("#loader").removeClass("loader");
       errors.push(`No results found for "${searchQuery}."`);
     } else if (goodRequests + badRequests === 15) {
@@ -273,40 +255,3 @@ drawMap();
 //     i += 1;
 //   }, 80);
 // };
-
-const isoConverter = (iso) => {
-  switch (iso) {
-    case "US":
-      return "United States";
-    case "AT":
-      return "Austria";
-    case "AU":
-      return "Australia";
-    case "DE":
-      return "Germany";
-    case "CA":
-      return "Canada";
-    case "ES":
-      return "Spain";
-    case "FR":
-      return "France";
-    case "BE":
-      return "Belgium";
-    case "GB":
-      return "United Kingom";
-    case "IE":
-      return "Ireland";
-    case "IN":
-      return "India";
-    case "IT":
-      return "Italy";
-    case "JP":
-      return "Japan";
-    case "NL":
-      return "Netherlands";
-    case "SE":
-      return "Sweden";
-    default:
-      return;
-  }
-};
