@@ -14,7 +14,7 @@
     <form id="searchForm" action="index.html" method="post">
       <h1>GlobeBay D3</h1>
       <summary>
-        GlobeBay is a real-time, interactive visualization of how eBay listings
+        A real-time, interactive visualization of how eBay listings
         are distributed geographically.
         <br><br>
         Make a search to populate the map with live results, and drag to explore!
@@ -32,7 +32,7 @@
         </section>
       </label>
       <label>
-        <p>Number of Results (Per Country):</p>
+        <p>Qty Results (Per Country):</p>
         <section id="resultSlider">
           <input id="numEntries" type="range" min="1" value="15">
           <div id="entriesDisplay">15</div>
@@ -68,8 +68,7 @@
             <option data-id="PL" data-iso="PL">Poland</option>
            -->
         </select>
-        <div id="regionNote"><b>*</b>For worlwide search, results
-        are capped at 50/country to stay under API query limits.</div>
+        <div id="regionNote"><b>*</b>Worlwide search is capped at 50/country to meet Google API's query limits.</div>
       </label>
       <input id="submitBtn" type="submit" value="Map It!">
       <aside id="errorBox" class="hidden">
