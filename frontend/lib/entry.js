@@ -131,7 +131,6 @@ function ebayQuery(e) {
 function geocoder(listings) {
   let countryIso = $("#siteVersion").find(":selected").data("iso");
   let ebayListings = listings.itemSummaries;
-
   if (ebayListings) {
     let unfinishedRequests = [];
     ebayListings.forEach(async (listing) => {
