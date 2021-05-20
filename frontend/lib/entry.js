@@ -45,7 +45,7 @@ function ebayQuery(e) {
     maxPrice = $("#maxPrice").val(),
     numResults = $("#numEntries").val(),
     countryIso = $("#siteVersion").find(":selected").data("iso");
-    
+
   if (searchQuery !== "") {
     $("#loader").addClass("loader");
     errors = ["Sorry!"];
@@ -129,6 +129,7 @@ function ebayQuery(e) {
 }
 
 function geocoder(listings) {
+  let countryIso = $("#siteVersion").find(":selected").data("iso");
   let ebayListings = listings.itemSummaries;
 
   if (ebayListings) {
@@ -192,7 +193,6 @@ function geocoder(listings) {
     $.when.apply($, unfinishedRequests).then(function () {
       handleErrors();
       goodRequests += 1;
-      let countryIso = $("#siteVersion").find(":selected").data("iso");
       if (countryIso === "world") {
         if (goodRequests + badRequests === 15) {
           $("#loader").removeClass("loader");
