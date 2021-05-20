@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
+  mode: "none",
   entry: "./frontend/lib/entry.js",
   output: {
     filename: "bundle.js",

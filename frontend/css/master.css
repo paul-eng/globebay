@@ -6,6 +6,8 @@ body {
   color: white;
   display: flex;
   font-size: 1em;
+  background-image: url('../grid.png');
+  background-repeat: repeat;
 }
 
 .loader {
@@ -33,6 +35,8 @@ body {
   justify-content: flex-start;
   background-color: #3cabbc;
   width: 20vw;
+  min-height: 100vh;
+  box-sizing: border-box;
   padding: 2%;
 }
 
