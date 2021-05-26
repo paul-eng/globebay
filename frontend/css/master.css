@@ -197,5 +197,20 @@ h1 {
     font-size: 3.5rem;
     /* pre wrap to get formatting to recognize \A escape char in content as a newline */
     white-space: pre-wrap;
+    z-index: 10;
+  }
+}
+
+@media screen and (hover: none) {
+  .svg-container::before {
+    position: absolute;
+    content: "Try the app on a computer for more interaction with map points!";
+    padding: .5rem;
+    top: 1rem;
+    left: 1rem;
+    width: 14vw;
+    font-size: 1rem;
+    z-index: 1;
+    background-color: #4c5055;
   }
 }
