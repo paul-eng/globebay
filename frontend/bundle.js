@@ -97,7 +97,7 @@ const drawMap = function () {
 
 let mapMarkers = svg.append("g").attr("class", "mapMarkers");
 
-let tooltip = d3.select("body").append("div").attr("class", "tooltip");
+let tooltip = d3.select("div#container").append("div").attr("class", "tooltip");
 
 const drawMarkers = function (geojson) {
   mapMarkers.selectAll("a").remove();
@@ -46422,18 +46422,18 @@ function featureBuilder(listing, coords) {
 (0,_globe_js__WEBPACK_IMPORTED_MODULE_0__.drawWater)();
 (0,_globe_js__WEBPACK_IMPORTED_MODULE_0__.drawMap)();
 
-// window.onload = function () {
-//   let i = 1;
-//   let typist = setInterval(function () {
-//     let letters = "Vintage Nintendo Console".split("");
-//     $("#searchQuery").val(letters.slice(0, i).join(""));
-//     if (i === letters.length) {
-//       clearInterval(typist);
-//       $("#searchForm").submit();
-//     }
-//     i += 1;
-//   }, 80);
-// };
+window.onload = function () {
+  let i = 1;
+  let typist = setInterval(function () {
+    let letters = "Vintage Nintendo Console".split("");
+    $("#searchQuery").val(letters.slice(0, i).join(""));
+    if (i === letters.length) {
+      clearInterval(typist);
+      $("#searchForm").submit();
+    }
+    i += 1;
+  }, 80);
+};
 
 })();
 

@@ -83,7 +83,7 @@ export const drawMap = function () {
 
 let mapMarkers = svg.append("g").attr("class", "mapMarkers");
 
-let tooltip = d3.select("body").append("div").attr("class", "tooltip");
+let tooltip = d3.select("div#container").append("div").attr("class", "tooltip");
 
 export const drawMarkers = function (geojson) {
   mapMarkers.selectAll("a").remove();

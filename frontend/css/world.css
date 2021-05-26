@@ -25,6 +25,7 @@
   position: relative;
   width: 80vw;
   height: 100vh;
+  overflow: hidden;
 }
 
 .svg-content {
@@ -42,7 +43,7 @@
 
 .tooltip {
   pointer-events: none;
-  position: absolute;
+  position: fixed;
   width: 10%;
   font: .9em sans-serif;
   background: transparent;
