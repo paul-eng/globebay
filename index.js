@@ -4,14 +4,13 @@ const ebay = require("./routes/ebay");
 const google = require("./routes/google");
 const path = require("path");
 const app = express();
+const pingCustom = require("./ping-custom");
+const url = "https://globebay.herokuapp.com/";
 
 app.use(cors());
 app.use(express.json());
 app.use("/ebay", ebay);
 app.use("/google", google);
-
-const pingCustom = require("./ping-custom");
-const url = "https://globebay.herokuapp.com/";
 
 // Heroku specific HTTPS redirect solution c/o Jake Trent
 if (process.env.NODE_ENV === "production") {
