@@ -10,9 +10,7 @@ To populate the map, a query is first dispatched to the eBay Browse API based on
 
 To ensure location data is found for the correct city (eg. the Oakland in California, not Oakland, Massachusetts), successful queries trigger a subsequent call to the Google Places API, whose autocomplete feature is able to extrapolate a state/province based on the incomplete postal code. From there, data is funneled to the Google Maps Geocoding API, requesting longitude and latitude geometry for the now-complete location of the eBay listing. All of the relevant information from the API returns is packaged into a geoJSON feature for each listing, which is rendered on the map as a clickable / hoverable marker.
 
-Because the 'All Countries' search sends a request to fifteen disparate eBay global API endpoints (US, Canada, Spain, etc), the number of results per country is capped and processed sequentially to meet Google's limit of 50 requests per second. In the future, at the expense of increased load times, the full dataset could be paginated and worked through.
-
-Note: This app once ran entirely client side using eBay's Finding API, however ~2018 support for that API was abruptly abandoned without notice. Eventually Browse API was introduced, with most of the same functionality but requiring all queries be made through a server or at the very least some sort of proxy. 
+Errors at any point in the process are displayed on the options panel
 
 ![screencap]
 
@@ -78,6 +76,15 @@ A tooltip displaying listing info appears to the right of the cursor when hoveri
     .style('top', (d3.event.pageY) + "px");
 })
 ```
+
+### Misc Notes
+
+Data returned from the APIs is memoized to avoid redundant calls in the case that a location has already been looked up
+
+Because the 'All Countries' search sends a request to fifteen disparate eBay global API endpoints (US, Canada, Spain, etc), the number of results per country is capped and processed sequentially to meet Google's limit of 50 requests per second. In the future, at the expense of increased load times, the full dataset could be paginated and worked through.
+
+This app once ran entirely client side using eBay's Finding API, however ~2018 support for that API was abruptly abandoned without notice. Eventually Browse API was introduced, with most of the same functionality but requiring all queries be made through a server or at the very least some sort of proxy. 
+
 
 [site]: https://globebay.herokuapp.com/
 [screencap]: ./docs/screencap.png
